@@ -8,18 +8,16 @@ public class Client {
     static Socket socket;
     static BufferedReader bufferedReader;
     static BufferedReader bufferedReader1;
-    static OutputStream outputStream;
-    static InputStream inputStream;
     static PrintWriter printWriter;
 
     public static void main(String[] args) throws IOException{
             socket = new Socket();
             socket.connect(new InetSocketAddress(InetAddress.getLocalHost(),5757), 2000);
 
-            outputStream = socket.getOutputStream();
+            OutputStream outputStream = socket.getOutputStream();
             printWriter = new PrintWriter(outputStream,true);
 
-            inputStream = socket.getInputStream();
+            InputStream inputStream = socket.getInputStream();
             bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 
             System.out.println("Server is ready to work...");
