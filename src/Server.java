@@ -2,14 +2,16 @@ import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-public class Server{
+public class Server {
 
-    static ServerSocket serverSocket;
-    static Socket socket;
-    static BufferedReader bufferedReader;
-    static PrintWriter printWriter;
+    private static ServerSocket serverSocket;
+    private static Socket socket;
+    private static BufferedReader bufferedReader;
+    private static PrintWriter printWriter;
 
     public static void main(String[] args) throws IOException {
+
+        System.out.println("The server started, waiting client actions...");
 
         serverSocket = new ServerSocket(5757);
         socket = serverSocket.accept();
@@ -18,19 +20,24 @@ public class Server{
         bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
 
         OutputStream outputStream = socket.getOutputStream();
-        printWriter = new PrintWriter(outputStream,true);
+        printWriter = new PrintWriter(outputStream, true);
 
-        System.out.println("The server started, waiting client actions...");
-
-
-            if(true){
+        while (true) {
+            if(bufferedReader.readLine().equals("1")) {
                 System.out.println(("Wait a little bit..."));
                 String input = bufferedReader.readLine();
-                System.out.println(input);
+                System.out.println("Number to calculate Fib: " + input);
                 Integer value = Integer.valueOf(input);
-                System.out.println(value);
-                printWriter.println("Your fibonachi number is: " + Metods.fibonachi(value));
+                printWriter.println("Your fibonacci number is: " + Metods.fibonachi(value));
+            }
+            else {
+                System.out.println(("Wait a little bit..."));
+                String input = bufferedReader.readLine();
+                System.out.println("Number to calculate Fib: " + input);
+                Integer value = Integer.valueOf(input);
+                printWriter.println("Your factorial number is: " + Metods.calculateFactorial(value));
             }
         }
+    }
 
 }
